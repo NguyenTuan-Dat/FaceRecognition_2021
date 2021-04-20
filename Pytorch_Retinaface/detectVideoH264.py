@@ -13,6 +13,8 @@ from utils.box_utils import decode, decode_landm
 import time
 import matplotlib.pyplot as plt
 
+SIZE_W= 500
+
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -167,8 +169,9 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
 
-            gray_image = cv2.cvtColor(img_raw, cv2.COLOR_BRG2GRAY)
+            frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
+            frame = cv2.resize(frame, (SIZE_W, int(height / width * SIZE_W)))
 
-            plt.plot(gray_image)
+            plt.imshow(frame)
             plt.show()
 
