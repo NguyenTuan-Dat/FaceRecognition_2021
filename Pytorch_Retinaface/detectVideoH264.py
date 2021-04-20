@@ -169,6 +169,6 @@ if __name__ == '__main__':
 
             gray_image = cv2.cvtColor(img_raw, cv2.COLOR_BRG2GRAY)
 
-            plt.plot(img_raw)
+            plt.plot(gray_image)
             plt.show()
 
