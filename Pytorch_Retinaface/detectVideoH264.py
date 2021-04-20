@@ -11,7 +11,7 @@ import cv2
 from models.retinaface import RetinaFace
 from utils.box_utils import decode, decode_landm
 import time
-import matplotlib
+import matplotlib.pyplot as plt
 
 
 parser = argparse.ArgumentParser(description='Retinaface')
