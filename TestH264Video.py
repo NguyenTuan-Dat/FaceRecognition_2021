@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from imgrender import render
 
 SIZE_W = 1000
 
@@ -13,7 +14,7 @@ while(cap.isOpened()):
     # frame = cv2.resize(frame, (SIZE_W, int(height/width*SIZE_W)))
     print((int(width/height*SIZE_W), SIZE_W))
 
-    cv2.imshow('frame', frame)
+    render(frame, scale=(40, 60))
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
