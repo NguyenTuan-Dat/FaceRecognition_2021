@@ -11,6 +11,10 @@ import cv2
 from models.retinaface import RetinaFace
 from utils.box_utils import decode, decode_landm
 import time
+import matplotlib
+matplotlib.use('module://matplotlib-sixel')
+from pylab import *
+
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -164,8 +168,7 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[9], b[10]), 1, (255, 0, 255), 4)
                 cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
-            # save image
 
-            name = "test.jpg"
-            cv2.imshow(name, img_raw)
+            plt.plot(img_raw)
+            show()
 
