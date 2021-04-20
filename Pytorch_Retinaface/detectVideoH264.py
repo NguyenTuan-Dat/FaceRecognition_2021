@@ -24,6 +24,7 @@ parser.add_argument('--nms_threshold', default=0.4, type=float, help='nms_thresh
 parser.add_argument('--keep_top_k', default=750, type=int, help='keep_top_k')
 parser.add_argument('-s', '--save_image', action="store_true", default=True, help='show detection results')
 parser.add_argument('--vis_thres', default=0.6, type=float, help='visualization_threshold')
+parser.add_argument('--input_video', default="../input/data-nckh-facerecognition/102180195.h264", type=str, help='Path_to_Video')
 args = parser.parse_args()
 
 
@@ -82,8 +83,7 @@ if __name__ == '__main__':
 
     resize = 1
 
-    cap = cv2.VideoCapture(
-        '/Users/ntdat/Tài liệu/Nghiên cứu nhận dạng khuôn mặt/Data/Test_0_20210413074108.h264')
+    cap = cv2.VideoCapture(args.input_video)
 
     while (cap.isOpened()):
         ret, frame = cap.read()
