@@ -12,7 +12,6 @@ from models.retinaface import RetinaFace
 from utils.box_utils import decode, decode_landm
 import time
 import matplotlib
-matplotlib.use('module://matplotlib-sixel')
 from pylab import *
 
 
@@ -170,5 +169,5 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
 
             plt.plot(img_raw)
-            show()
+            plt.show()
 
