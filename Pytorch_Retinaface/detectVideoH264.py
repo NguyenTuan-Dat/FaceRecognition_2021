@@ -11,8 +11,8 @@ import cv2
 from models.retinaface import RetinaFace
 from utils.box_utils import decode, decode_landm
 import time
-from imgrender import render
-from PIL import Image
+import matplotlib
+
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -167,4 +167,6 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
 
-                render(Image.fromarray(img_raw), scale=(400, 600))
+            plt.plot(img_raw)
+            plt.show()
+
