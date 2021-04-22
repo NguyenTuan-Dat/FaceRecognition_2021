@@ -181,4 +181,5 @@ if __name__ == '__main__':
 
             video.write(img_raw)
             count+=1
+    video.release()
 
