@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     while (cap.isOpened()):
         ret, frame = cap.read()
-        if type(frame) == 'NoneType':
+        if type(frame) is None:
             break
         height, width, chanel = frame.shape
         cv2.imwrite("./image_raw_" + str(count) + ".jpg", frame)
