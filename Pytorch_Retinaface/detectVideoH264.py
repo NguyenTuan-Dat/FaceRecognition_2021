@@ -92,7 +92,7 @@ if __name__ == '__main__':
     while (cap.isOpened()):
         ret, frame = cap.read()
         height, width, chanel = frame.shape
-        img_raw = frame
+        img_raw = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         img = np.float32(img_raw)
 
@@ -172,7 +172,6 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
 
-            frame_1 = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
             frame_1 = cv2.resize(frame_1, (SIZE_W, int(height / width * SIZE_W)))
 
             cv2.imwrite("./image_" + str(count) + ".jpg", frame_1)
