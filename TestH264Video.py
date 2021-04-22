@@ -10,7 +10,7 @@ list_dir = os.listdir("../input/data-nckh-facerecognition")
 print(list_dir)
 
 cap = cv2.VideoCapture(
-    "/Users/ntdat/Tài liệu/Nghiên cứu nhận dạng khuôn mặt/Data/Test_0_20210413074108.h264")
+    "../input/data-nckh-facerecognition/102180162.h264")
 
 while(cap.isOpened()):
     ret, frame = cap.read()
