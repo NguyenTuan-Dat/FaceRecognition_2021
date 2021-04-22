@@ -2,11 +2,15 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from time import sleep
+import os
 
 SIZE_W = 500
 
+list_dir = os.listdir("../input/data-nckh-facerecognition")
+print(list_dir)
+
 cap = cv2.VideoCapture(
-    '../input/data-nckh-facerecognition/102180190.h264')
+    "/Users/ntdat/Tài liệu/Nghiên cứu nhận dạng khuôn mặt/Data/Test_0_20210413074108.h264")
 
 while(cap.isOpened()):
     ret, frame = cap.read()
