@@ -5,6 +5,7 @@ from time import sleep
 import os
 
 SIZE_W = 500
+count = 0
 
 test_img = cv2.imread("../input/cityscapes-image-pairs/cityscapes_data/train/1.jpg")
 plt.imshow(test_img)
@@ -19,6 +20,8 @@ while(cap.isOpened()):
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     frame = cv2.resize(frame, (SIZE_W, int(height/width*SIZE_W)))
     print((int(width/height*SIZE_W), SIZE_W))
+    cv2.imwrite("../output/image_" + str(count) + ".jpg")
+    count+=1
 
     # gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
