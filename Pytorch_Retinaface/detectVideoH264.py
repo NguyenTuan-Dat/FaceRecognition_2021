@@ -149,6 +149,9 @@ if __name__ == '__main__':
 
         dets = np.concatenate((dets, landms), axis=1)
 
+        print(dets.shape)
+        print(args.save_image)
+
         # show image
         if args.save_image:
             for b in dets:
