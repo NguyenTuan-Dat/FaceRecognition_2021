@@ -14,7 +14,7 @@ import time
 import matplotlib.pyplot as plt
 
 SIZE_W= 500
-
+count = 0
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -149,6 +149,9 @@ if __name__ == '__main__':
 
         dets = np.concatenate((dets, landms), axis=1)
 
+        print(dets.shape)
+        print(args.save_image)
+
         # show image
         if args.save_image:
             for b in dets:
@@ -172,6 +175,7 @@ if __name__ == '__main__':
             frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
             frame = cv2.resize(frame, (SIZE_W, int(height / width * SIZE_W)))
 
-            plt.imshow(frame)
-            plt.show()
+            cv2.imwrite("./image_" + str(count) + ".jpg", frame)
+            count+=1
+            print("saved " + str(count) + ".jpg")
 
