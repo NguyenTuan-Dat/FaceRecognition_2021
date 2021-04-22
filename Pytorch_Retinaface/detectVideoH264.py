@@ -172,7 +172,7 @@ if __name__ == '__main__':
                 cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
                 cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
 
-            frame_1 = cv2.resize(frame_1, (SIZE_W, int(height / width * SIZE_W)))
+            frame_1 = cv2.resize(img_raw, (SIZE_W, int(height / width * SIZE_W)))
 
             cv2.imwrite("./image_" + str(count) + ".jpg", frame_1)
             count+=1
