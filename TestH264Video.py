@@ -18,7 +18,5 @@ while(cap.isOpened()):
 
     plt.imshow(frame)
     plt.show()
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
 cap.release()
