@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 SIZE_W= 400
 count = 0
-VIDEO_NAME = "./video.mp4"
+VIDEO_NAME = "./video.avi"
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
