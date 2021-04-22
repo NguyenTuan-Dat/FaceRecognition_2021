@@ -17,7 +17,7 @@ cap = cv2.VideoCapture(
 while(cap.isOpened()):
     ret, frame = cap.read()
     height, width, channel = frame.shape
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     frame = cv2.resize(frame, (SIZE_W, int(height/width*SIZE_W)))
     print((int(width/height*SIZE_W), SIZE_W))
     cv2.imwrite("./image_" + str(count) + ".jpg", frame)
