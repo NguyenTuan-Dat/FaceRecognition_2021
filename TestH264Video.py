@@ -6,8 +6,9 @@ import os
 
 SIZE_W = 500
 
-list_dir = os.listdir("../input/data-nckh-facerecognition")
-print(list_dir)
+test_img = cv2.imread("../input/cityscapes-image-pairs/cityscapes_data/train/1.jpg")
+plt.imshow(test_img)
+plt.show()
 
 cap = cv2.VideoCapture(
     "../input/data-nckh-facerecognition/102180162.h264")
