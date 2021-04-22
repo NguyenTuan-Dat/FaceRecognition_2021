@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 SIZE_W= 400
 count = 0
-VIDEO_NAME = "video.mp4"
+VIDEO_NAME = "./video.mp4"
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     while (cap.isOpened()):
         ret, frame = cap.read()
-        if type(frame) is None:
+        if frame is None:
             break
         height, width, chanel = frame.shape
         cv2.imwrite("./image_raw_" + str(count) + ".jpg", frame)
