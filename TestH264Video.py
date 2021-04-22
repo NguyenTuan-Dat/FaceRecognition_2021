@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 SIZE_W = 500
 
 cap = cv2.VideoCapture(
-    '../input/data-nckh-facerecognition/102180155.h264')
+    '../input/data-nckh-facerecognition/102180154.h264')
 
 while(cap.isOpened()):
     ret, frame = cap.read()
@@ -22,4 +22,3 @@ while(cap.isOpened()):
         break
 
 cap.release()
-cv2.destroyAllWindows()
