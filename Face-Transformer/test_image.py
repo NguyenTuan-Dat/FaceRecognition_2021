@@ -79,13 +79,14 @@ def main(args):
 
 def embedding(img, model):
     embed = None
+    img_cropped_faces = None
     with torch.no_grad():
         try:
             cropped_faces = mtcnn(img)
             img_cropped_faces = np.transpose(cropped_faces, (0, 2, 3, 1))
             if cropped_faces is not None:
                 embed = model(cropped_faces.to(DEVICE)).cpu()
-                return embed
+                return embed, img_cropped_faces
         except Exception as ex:
             print(ex)
     return embed, img_cropped_faces
