@@ -80,6 +80,7 @@ def embedding(img, model):
             cropped_faces = mtcnn(img)
             if cropped_faces is not None:
                 embed = model(cropped_faces.to(DEVICE)).cpu()
+                return embed
         except Exception as ex:
             print(ex)
     return embed
