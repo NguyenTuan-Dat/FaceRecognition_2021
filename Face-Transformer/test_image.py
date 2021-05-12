@@ -13,7 +13,6 @@ import torch.utils.data as data
 import argparse
 import os
 from facenet_pytorch import MTCNN
-from google.colab.patches import cv2_imshow
 
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
@@ -125,7 +124,7 @@ def find_person(database, name_ids, unknows, face_unknows):
         unknow = unknows[i]
         face = face_unknows[i]
         if face is not None and unknow is not None:
-            cv2.imwrite("/content/output/" + i + ".jpg", face)
+            cv2.imwrite("/content/output/" + str(i) + ".jpg", face)
             print(i + ".jpg")
             distancies = list()
             for person in database:
