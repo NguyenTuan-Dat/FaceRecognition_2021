@@ -125,7 +125,8 @@ def find_person(database, name_ids, unknows, face_unknows):
         unknow = unknows[i]
         face = face_unknows[i]
         if face is not None and unknow is not None:
-            cv2_imshow(face)
+            cv2.imwrite("/content/output/" + i + ".jpg", face)
+            print(i + ".jpg")
             distancies = list()
             for person in database:
                 if person is not None:
