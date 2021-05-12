@@ -91,7 +91,7 @@ def embedding(img, model):
         try:
             cropped_faces = mtcnn(img)
             if cropped_faces is not None:
-                img_cropped_faces = img_cropped_faces.detach().numpy()
+                img_cropped_faces = cropped_faces.detach().numpy()
                 img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 return embed, img_cropped_faces
@@ -128,9 +128,10 @@ def find_person(database, name_ids, unknows, face_unknows):
             cv2_imshow(face)
             distancies = list()
             for person in database:
-                loss = l2(unknow, person)
-                print(loss)
-                distancies.append(loss)
+                if person is not None:
+                    loss = l2(unknow, person)
+                    print(loss)
+                    distancies.append(loss)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
             print(name_ids[argmin])
