@@ -17,6 +17,9 @@ from facenet_pytorch import MTCNN
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
+mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
+
+
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', default='', help='training set directory')
@@ -28,13 +31,14 @@ def parse_arguments(argv):
     parser.add_argument('--batch_size', type=int, help='', default=20)
     return parser.parse_args(argv)
 
+
 def main(args):
-    if args.network == 'VIT' :
+    if args.network == 'VIT':
         model = ViT_face(
             image_size=112,
             patch_size=8,
             loss_type='CosFace',
-            GPU_ID= DEVICE,
+            GPU_ID=DEVICE,
             num_class=93431,
             dim=512,
             depth=20,
@@ -66,15 +70,28 @@ def main(args):
     model.to(DEVICE)
     model.eval()
 
-    with torch.no_grad():
-        mtcnn = MTCNN(margin=0, keep_all=True, post_process=False, device='cuda:0')
+    embedding_database(args.test_dir, model)
 
-        img_names = os.listdir(args.test_dir)
+
+def embedding(img, model):
+    embed = None
+    with torch.no_grad():
+        cropped_faces = mtcnn(img)
+        if cropped_faces is not None:
+            embed = model(cropped_faces.to(DEVICE)).cpu()
+    return embed
+
+
+def embedding_database(path_to_dirs, model):
+    list_dir = os.listdir(path_to_dirs)
+    for dir in list_dir:
+        path_to_dir = path_to_dirs + dir + "/"
+        img_names = os.listdir(path_to_dir)
         for img_name in img_names:
-            img = cv2.imread(args.test_dir + img_name)
-            cropped_faces = mtcnn(img)
-            embedding = model(cropped_faces)
-            print(embedding)
+            img = cv2.imread(img_name)
+            embed = embedding(img, model)
+            print("{}: {}".format(img_name, embed))
+
 
 if __name__ == '__main__':
     main(parse_arguments(sys.argv[1:]))

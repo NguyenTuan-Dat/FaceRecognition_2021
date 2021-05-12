@@ -20,10 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aee07dcd-464a-4afa-825e-c95197aff00a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Face-Transformer/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Face-Transformer/test_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/test_image.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +43,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
   </component>
   <component name="RunManager" selected="Python.TestH264Video">
     <configuration name="TestH264Video" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -129,43 +130,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="100" y="100" width="1720" height="1000" key="DiffContextDialog" timestamp="1618889910069">
-      <screen x="0" y="25" width="1920" height="1080" />
-    </state>
-    <state x="100" y="100" width="1720" height="1000" key="DiffContextDialog/0.25.1920.1080@0.25.1920.1080" timestamp="1618889910069" />
-    <state width="1899" height="344" key="GridCell.Tab.0.bottom" timestamp="1619152049447">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state width="1899" height="344" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1619152049447" />
-    <state width="1899" height="344" key="GridCell.Tab.0.bottom/0.25.1920.1080@0.25.1920.1080" timestamp="1619074776625" />
-    <state width="1899" height="344" key="GridCell.Tab.0.center" timestamp="1619152049446">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state width="1899" height="344" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1619152049446" />
-    <state width="1899" height="344" key="GridCell.Tab.0.center/0.25.1920.1080@0.25.1920.1080" timestamp="1619074776624" />
-    <state width="1899" height="344" key="GridCell.Tab.0.left" timestamp="1619152049446">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state width="1899" height="344" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1619152049446" />
-    <state width="1899" height="344" key="GridCell.Tab.0.left/0.25.1920.1080@0.25.1920.1080" timestamp="1619074776620" />
-    <state width="1899" height="344" key="GridCell.Tab.0.right" timestamp="1619152049446">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state width="1899" height="344" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1619152049446" />
-    <state width="1899" height="344" key="GridCell.Tab.0.right/0.25.1920.1080@0.25.1920.1080" timestamp="1619074776625" />
-    <state x="469" y="236" key="SettingsEditor" timestamp="1618888408735">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="469" y="236" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1618888408735" />
-    <state x="812" y="517" key="VCS.ChangelistChooser" timestamp="1618889876375">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="812" y="517" key="VCS.ChangelistChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1618889876375" />
-    <state x="625" y="271" key="search.everywhere.popup" timestamp="1619109967226">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="625" y="271" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1619109967226" />
   </component>
 </project>
