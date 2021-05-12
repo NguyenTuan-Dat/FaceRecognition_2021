@@ -73,7 +73,13 @@ def main(args):
     model.eval()
 
     database, name_ids = embedding_database(args.test_dir, model)
+
+    print("len database: {}, len name_ids: {}".format(len(database), len(name_ids)))
+
+    print("=======================embedding database done!!!")
+
     unknows, faces = embedding(args.target, model)
+    print("len unknows: {}, len faces: {}".format(len(unknows), len(faces)))
     find_person(database, name_ids, unknows, faces)
 
 
@@ -116,15 +122,16 @@ def find_person(database, name_ids, unknows, face_unknows):
     for i in range(len(unknows)):
         unknow = unknows[i]
         face = face_unknows[i]
-        cv2_imshow(face)
-        distancies = list()
-        for person in database:
-            loss = l2(unknow, person)
-            print(loss)
-            distancies.append(loss)
-        distancies = np.array(distancies)
-        argmin = np.argmin(distancies)
-        print(name_ids[argmin])
+        if face is not None and unknow is not None:
+            cv2_imshow(face)
+            distancies = list()
+            for person in database:
+                loss = l2(unknow, person)
+                print(loss)
+                distancies.append(loss)
+            distancies = np.array(distancies)
+            argmin = np.argmin(distancies)
+            print(name_ids[argmin])
 
 
 if __name__ == '__main__':
