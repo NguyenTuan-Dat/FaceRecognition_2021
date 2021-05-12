@@ -92,9 +92,9 @@ def embedding_database(path_to_dirs, model):
         path_to_dir = path_to_dirs + dir + "/"
         img_names = os.listdir(path_to_dir)
         for img_name in img_names:
-            img = cv2.imread(img_name)
+            img = cv2.imread(path_to_dir + img_name)
             embed = embedding(img, model)
-            print("{}: {}".format(img_name, embed))
+            print("{}: {}".format(dir + "/" + img_name, embed))
 
 
 if __name__ == '__main__':
