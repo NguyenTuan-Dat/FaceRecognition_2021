@@ -90,9 +90,9 @@ def embedding(img, model):
     with torch.no_grad():
         try:
             cropped_faces = mtcnn(img)
-            img_cropped_faces = img_cropped_faces.detach().numpy()
-            img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
             if cropped_faces is not None:
+                img_cropped_faces = img_cropped_faces.detach().numpy()
+                img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 return embed, img_cropped_faces
         except Exception as ex:
