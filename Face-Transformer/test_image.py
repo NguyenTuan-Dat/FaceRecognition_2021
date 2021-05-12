@@ -80,7 +80,7 @@ def main(args):
 
     img_test = cv2.imread(args.target)
     unknows, faces = embedding(img_test, model)
-    print("len unknows: {}, len faces: {}".format(len(unknows), len(faces)))
+    print("len unknows: {}, len faces: {}".format(len(unknows), faces.shape))
     find_person(database, name_ids, unknows, faces)
 
 
@@ -90,7 +90,8 @@ def embedding(img, model):
     with torch.no_grad():
         try:
             cropped_faces = mtcnn(img)
-            img_cropped_faces = np.transpose(cropped_faces, (0, 2, 3, 1))
+            img_cropped_faces = img_cropped_faces.detach().numpy()
+            img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
             if cropped_faces is not None:
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 return embed, img_cropped_faces
