@@ -78,7 +78,8 @@ def main(args):
 
     print("=======================embedding database done!!!")
 
-    unknows, faces = embedding(args.target, model)
+    img_test = cv2.imread(args.target)
+    unknows, faces = embedding(img_test, model)
     print("len unknows: {}, len faces: {}".format(len(unknows), len(faces)))
     find_person(database, name_ids, unknows, faces)
 
@@ -113,7 +114,7 @@ def embedding_database(path_to_dirs, model):
             embeds.append(embed)
             name_ids.append(dir + "/" + img_name)
 
-            print("{}: {}".format(dir + "/" + img_name, embed))
+            # print("{}: {}".format(dir + "/" + img_name, embed))
 
     return embeds, name_ids
 
