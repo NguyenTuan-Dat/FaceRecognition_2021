@@ -23,8 +23,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Face-Transformer/copy-to-vit_pytorch-path/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/copy-to-vit_pytorch-path/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Face-Transformer/copy-to-vit_pytorch-path/vit_face.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/copy-to-vit_pytorch-path/vit_face.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Face-Transformer/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Face-Transformer/test_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/test_image.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -12,6 +12,7 @@ from image_iter import FaceDataset
 import torch.utils.data as data
 import argparse
 import os
+from facenet_pytorch import MTCNN
 
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
@@ -66,10 +67,13 @@ def main(args):
     model.eval()
 
     with torch.no_grad():
+        mtcnn = MTCNN(margin=0, keep_all=True, post_process=False, device='cuda:0')
+
         img_names = os.listdir(args.test_dir)
         for img_name in img_names:
             img = cv2.imread(args.test_dir + img_name)
-            embedding = model(img)
+            cropped_faces = mtcnn(img)
+            embedding = model(cropped_faces)
             print(embedding)
 
 if __name__ == '__main__':

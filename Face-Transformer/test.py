@@ -18,8 +18,8 @@ def main(args):
     MULTI_GPU = False
     DEVICE = torch.device("cuda:0")
     DATA_ROOT = '/raid/Data/ms1m-retinaface-t1/'
-    with open(os.path.join(DATA_ROOT, 'property'), 'r') as f:
-        NUM_CLASS, h, w = [int(i) for i in f.read().split(',')]
+    # with open(os.path.join(DATA_ROOT, 'property'), 'r') as f:
+    #     NUM_CLASS, h, w = [int(i) for i in f.read().split(',')]
 
     if args.network == 'VIT' :
         model = ViT_face(
@@ -27,7 +27,7 @@ def main(args):
             patch_size=8,
             loss_type='CosFace',
             GPU_ID= DEVICE,
-            num_class=NUM_CLASS,
+            num_class=93431,
             dim=512,
             depth=20,
             heads=8,
@@ -39,7 +39,7 @@ def main(args):
         model = ViTs_face(
             loss_type='CosFace',
             GPU_ID=DEVICE,
-            num_class=NUM_CLASS,
+            num_class=93431,
             image_size=112,
             patch_size=8,
             ac_patch_size=12,
