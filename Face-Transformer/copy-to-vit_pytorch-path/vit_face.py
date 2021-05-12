@@ -375,7 +375,8 @@ class ViT_face(nn.Module):
 
     def forward(self, img, label= None , mask = None):
         p = self.patch_size
-
+        # print(img)
+        print("shape: " + str(img.shape))
         x = rearrange(img, 'b c (h p1) (w p2) -> b (h w) (p1 p2 c)', p1 = p, p2 = p)
         x = self.patch_to_embedding(x)
         b, n, _ = x.shape

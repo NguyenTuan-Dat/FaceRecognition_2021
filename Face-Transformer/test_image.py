@@ -34,7 +34,7 @@ def main(args):
             patch_size=8,
             loss_type='CosFace',
             GPU_ID= DEVICE,
-            num_class=NUM_CLASS,
+            num_class=93431,
             dim=512,
             depth=20,
             heads=8,
@@ -46,7 +46,7 @@ def main(args):
         model = ViTs_face(
             loss_type='CosFace',
             GPU_ID=DEVICE,
-            num_class=NUM_CLASS,
+            num_class=93431,
             image_size=112,
             patch_size=8,
             ac_patch_size=12,
