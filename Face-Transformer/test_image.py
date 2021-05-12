@@ -13,11 +13,13 @@ import torch.utils.data as data
 import argparse
 import os
 from facenet_pytorch import MTCNN
+from google.colab.patches import cv2_imshow
 
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
 mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
+l2 = torch.nn.MSELoss()
 
 
 def parse_arguments(argv):
@@ -70,7 +72,9 @@ def main(args):
     model.to(DEVICE)
     model.eval()
 
-    embedding_database(args.test_dir, model)
+    database, name_ids = embedding_database(args.test_dir, model)
+    unknows, faces = embedding(args.target, model)
+    find_person(database, name_ids, unknows, faces)
 
 
 def embedding(img, model):
@@ -78,23 +82,48 @@ def embedding(img, model):
     with torch.no_grad():
         try:
             cropped_faces = mtcnn(img)
+            img_cropped_faces = np.transpose(cropped_faces, (0, 2, 3, 1))
             if cropped_faces is not None:
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 return embed
         except Exception as ex:
             print(ex)
-    return embed
+    return embed, img_cropped_faces
 
 
 def embedding_database(path_to_dirs, model):
     list_dir = os.listdir(path_to_dirs)
+
+    embeds = list()
+    name_ids = list()
+
     for dir in list_dir:
         path_to_dir = path_to_dirs + dir + "/"
         img_names = os.listdir(path_to_dir)
         for img_name in img_names:
             img = cv2.imread(path_to_dir + img_name)
-            embed = embedding(img, model)
+            embed, _ = embedding(img, model)
+            embeds.append(embed)
+            name_ids.append(dir + "/" + img_name)
+
             print("{}: {}".format(dir + "/" + img_name, embed))
+
+    return embeds, name_ids
+
+
+def find_person(database, name_ids, unknows, face_unknows):
+    for i in range(len(unknows)):
+        unknow = unknows[i]
+        face = face_unknows[i]
+        cv2_imshow(face)
+        distancies = list()
+        for person in database:
+            loss = l2(unknow, person)
+            print(loss)
+            distancies.append(loss)
+        distancies = np.array(distancies)
+        argmin = np.argmin(distancies)
+        print(name_ids[argmin])
 
 
 if __name__ == '__main__':
