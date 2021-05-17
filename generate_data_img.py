@@ -16,6 +16,7 @@ print(args.output_folder)
 if not os.path.exists(args.output_folder):
     os.mkdir(args.output_folder)
 
+count = 0
 video_input = cv2.VideoCapture(args.video_input)
 while(video_input.isOpened()):
     ret, frame = video_input.read()
