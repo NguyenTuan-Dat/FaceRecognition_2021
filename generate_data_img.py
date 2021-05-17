@@ -11,7 +11,7 @@ parser.add_argument("-o", "--output_folder", type=str,
 
 args = parser.parse_args()
 
-print(*args.output_folder)
+print(args.output_folder)
 
 if not os.path.exists(*args.output_folder):
     os.mkdir(*args.output_folder)
