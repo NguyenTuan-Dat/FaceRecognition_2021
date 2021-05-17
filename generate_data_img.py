@@ -1,5 +1,6 @@
 import cv2
 import os
+import argparse
 
 parser = argparse.ArgumentParser(description='GenerateData')
 
