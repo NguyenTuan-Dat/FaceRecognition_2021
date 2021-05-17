@@ -10,6 +10,8 @@ parser.add_argument("-o", "--output_folder", default="/content/image_raw/")
 
 args = parser.parse_args()
 
+print(*args.output_folder)
+
 if not os.path.exists(*args.output_folder):
     os.mkdir(*args.output_folder)
 
