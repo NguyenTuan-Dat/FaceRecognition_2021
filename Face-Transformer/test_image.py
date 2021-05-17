@@ -127,15 +127,15 @@ def find_person(database, name_ids, unknows, face_unknows):
             cv2.imwrite("/content/output/" + str(i) + ".jpg", face)
             print(str(i) + ".jpg")
             distancies = list()
-            for person in database:
+            for idx in range(len(database)):
+                person = database[idx]
                 if person is not None:
                     loss = l2(unknow, person)
-                    # print(loss)
+                    print("{:>30}: {}".format(name_ids[idx], loss))
                     distancies.append(loss)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
-            print(name_ids[argmin])
+            print("argmin: {}, name: {}".format(name_ids[argmin]))
 
-
-if __name__ == '__main__':
-    main(parse_arguments(sys.argv[1:]))
+            if __name__ == '__main__':
+                main(parse_arguments(sys.argv[1:]))
