@@ -5,9 +5,9 @@ import argparse
 parser = argparse.ArgumentParser(description='GenerateData')
 
 parser.add_argument("-v", "--video_input", type=str,
-                    default="/content/Data/Test_0_20210413073736.h264")
+                    default='/content/Data/Test_0_20210413073736.h264')
 parser.add_argument("-o", "--output_folder", type=str,
-                    default="/content/image_raw/")
+                    default='/content/image_raw/')
 
 args = parser.parse_args()
 
