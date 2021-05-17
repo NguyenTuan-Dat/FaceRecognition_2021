@@ -18,7 +18,7 @@ if not os.path.exists(args.output_folder):
 
 video_input = cv2.VideoCapture(args.video_input)
 while(cap.isOpened()):
-    ret, frame = cap.read()
+    ret, frame = video_input.read()
     cv2.imwrite(args.output_folder + "image_raw_" +
                 str(count) + ".jpg", frame)
     count += 1
