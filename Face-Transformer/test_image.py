@@ -129,13 +129,15 @@ def find_person(database, name_ids, unknows, face_unknows):
             distancies = list()
             for idx in range(len(database)):
                 person = database[idx]
+                loss = 100
                 if person is not None:
                     loss = l2(unknow, person)
                     print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
-                    distancies.append(loss)
+                distancies.append(loss)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
-            print("argmin: {}, name: {}".format(argmin, name_ids[argmin]))
+            min = np.min(distancies)
+            print("min: {}, argmin: {}, name: {}".format(min, argmin, name_ids[argmin]))
 
 
 if __name__ == '__main__':
