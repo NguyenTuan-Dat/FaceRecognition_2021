@@ -130,7 +130,7 @@ def find_person(database, name_ids, unknows, face_unknows):
             for person in database:
                 if person is not None:
                     loss = l2(unknow, person)
-                    print(loss)
+                    # print(loss)
                     distancies.append(loss)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
