@@ -23,4 +23,4 @@ while(cap.isOpened()):
                 str(count) + ".jpg", frame)
     count += 1
 
-cap.release()
+video_input.release()
