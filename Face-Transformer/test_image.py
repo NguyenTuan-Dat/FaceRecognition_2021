@@ -106,6 +106,8 @@ def embedding_database(path_to_dirs, model):
     name_ids = list()
 
     for dir in list_dir:
+        if dir == ".DS_Store":
+            continue
         path_to_dir = path_to_dirs + dir + "/"
         img_names = os.listdir(path_to_dir)
         for img_name in img_names:
