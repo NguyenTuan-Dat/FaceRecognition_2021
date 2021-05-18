@@ -134,7 +134,7 @@ def find_person(database, name_ids, unknows, face_unknows):
                 loss = 100
                 if person is not None:
                     loss = l2(unknow, person)
-                    print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
+                    # print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
                 distancies.append(loss)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
