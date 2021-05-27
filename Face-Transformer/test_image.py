@@ -18,7 +18,16 @@ MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
 mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
-l2 = torch.nn.CosineSimilarity()
+
+
+def cosine_distance(a, b):
+    if a.shape != b.shape:
+        raise RuntimeError("array {} shape not match {}".format(a.shape, b.shape))
+    a_norm = np.linalg.norm(a)
+    b_norm = np.linalg.norm(b)
+    similarity = np.dot(a, b.T) / (a_norm * b_norm)
+
+    return similarity
 
 
 def parse_arguments(argv):
@@ -93,6 +102,7 @@ def embedding(img, model):
                 img_cropped_faces = cropped_faces.detach().numpy()
                 img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
                 embed = model(cropped_faces.to(DEVICE)).cpu()
+                print(embed.shape)
                 return embed, img_cropped_faces
         except Exception as ex:
             print(ex)
@@ -124,6 +134,7 @@ def embedding_database(path_to_dirs, model):
 def find_person(database, name_ids, unknows, face_unknows):
     for i in range(len(unknows)):
         unknow = unknows[i]
+        unknow = unknow.unsqueeze(0)
         face = face_unknows[i]
         if face is not None and unknow is not None:
             cv2.imwrite("/content/output/" + str(i) + ".jpg", face)
@@ -131,11 +142,14 @@ def find_person(database, name_ids, unknows, face_unknows):
             distancies = list()
             for idx in range(len(database)):
                 person = database[idx]
-                loss = 100
+                loss = torch.tensor([100])
+                # print("person shape: {}, unknow shape: {}".format(person.shape, unknow.shape))
                 if person is not None:
-                    loss = l2(unknow, person)
+                    loss = cosine_distance(unknow, person)
+                    # print(loss.shape)
                     # print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
-                distancies.append(loss)
+                # print("loss: {}".format(loss))
+                distancies.append(np.absolute(np.min(loss.detach().numpy())))
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
             min = np.min(distancies)
