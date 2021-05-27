@@ -134,6 +134,8 @@ def embedding_database(path_to_dirs, model):
 def find_person(database, name_ids, unknows, face_unknows):
     for i in range(len(unknows)):
         unknow = unknows[i]
+        if unknow is None:
+            continue
         unknow = unknow.unsqueeze(0)
         face = face_unknows[i]
         if face is not None and unknow is not None:
@@ -141,7 +143,7 @@ def find_person(database, name_ids, unknows, face_unknows):
             print(str(i) + ".jpg")
             distancies = list()
             for idx in range(len(database)):
-                person = database[idx]
+                person = database[idx][0].unsqueeze(0)
                 loss = torch.tensor([100])
                 # print("person shape: {}, unknow shape: {}".format(person.shape, unknow.shape))
                 if person is not None:
@@ -149,7 +151,7 @@ def find_person(database, name_ids, unknows, face_unknows):
                     # print(loss.shape)
                     # print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
                 # print("loss: {}".format(loss))
-                distancies.append(np.absolute(np.min(loss.detach().numpy())))
+                distancies.append(np.absolute(np.min(loss)))
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
             min = np.min(distancies)
