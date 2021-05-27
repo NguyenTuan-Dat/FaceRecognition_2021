@@ -27,7 +27,7 @@ def cosine_distance(a, b):
     b_norm = np.linalg.norm(b)
     similarity = np.dot(a, b.T) / (a_norm * b_norm)
 
-    return similarity
+    return 1 - similarity
 
 
 def parse_arguments(argv):
