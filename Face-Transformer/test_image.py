@@ -18,7 +18,7 @@ MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
 mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
-l2 = torch.nn.MSELoss()
+l2 = torch.nn.CosineSimilarity()
 
 
 def parse_arguments(argv):
