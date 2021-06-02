@@ -4,7 +4,7 @@ import os
 
 PATH_TO_DATA = ""
 PATH_TO_PAIRS_FILE = ""
-OUTPUT_PATH = "./data.bin"
+OUTPUT_PATH = "./train.bin"
 
 
 def get_pairs_file(path_to_data, path_to_pairs_file):

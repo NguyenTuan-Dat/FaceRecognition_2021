@@ -26,11 +26,11 @@ def load_bin(path, image_size=[112, 112]):
         img = mx.image.imdecode(_bin)
 
         # test show img
-        # print(img.asnumpy().shape)
-        # cv2.imshow("ALoAlo", img.asnumpy())
-        # key = cv2.waitKey()
-        # if key == ord('q'):
-        #     return
+        print(img.asnumpy().shape)
+        cv2.imshow("ALoAlo", img.asnumpy())
+        key = cv2.waitKey()
+        if key == ord('q'):
+            return
 
         if img.shape[1] != image_size[0]:
             img = mx.image.resize_short(img, image_size[0])

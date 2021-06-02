@@ -1,5 +1,5 @@
 import os
-import generate_pairs
+import random
 import argparse
 
 
@@ -33,15 +33,15 @@ class PairGenerator:
                 a.append(name)
                 cnt = cnt + 1
             cnt = cnt + 1
-        generate_pairs.shuffle(a)
+        random.shuffle(a)
 
     # splitting the database content into 10 random sets
 
     def write_similar(self, lst):
         f = open(self.pairs_filepath, 'a+')
         for i in range(20):
-            left = generate_pairs.choice(lst)
-            right = generate_pairs.choice(lst)
+            left = random.choice(lst)
+            right = random.choice(lst)
             f.write(left + '\t' + right + '\t' + '1\n')
 
     # writing 1 IMAGE_PATH LABEL like insightface lst file needs
@@ -83,8 +83,8 @@ class PairGenerator:
     def write_different(self, lst1, lst2):
         f = open(self.pairs_filepath, 'a+')
         for i in range(500):
-            left = generate_pairs.choice(lst1)
-            right = generate_pairs.choice(lst2)
+            left = random.choice(lst1)
+            right = random.choice(lst2)
             f.write(left + '\t' + right + '\t' + '0\n')
         f.close()
 

@@ -29,11 +29,11 @@ def get_config(args):
     configuration['BATCH_SIZE'] = args.batch_size
 
     if args.data_mode == 'retina':
-        configuration['DATA_ROOT'] = './Data/ms1m-retinaface-t1/'
+        configuration['DATA_ROOT'] = './Data/'
     else:
         raise Exception(args.data_mode)
     configuration['EVAL_PATH'] = './eval/'
-    assert args.net in [ 'VIT','VITs']
+    assert args.net in ['VIT', 'VITs']
     configuration['BACKBONE_NAME'] = args.net
     assert args.head in ['Softmax', 'ArcFace', 'CosFace', 'SFaceLoss']
     configuration['HEAD_NAME'] = args.head
