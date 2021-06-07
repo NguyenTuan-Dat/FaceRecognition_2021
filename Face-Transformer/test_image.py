@@ -26,12 +26,14 @@ def cosine_distance(a, b):
     b_norm = np.linalg.norm(b)
     similarity = np.dot(a, b.T) / (a_norm * b_norm)
 
-    return similarity
+    return 1 - similarity
 
 
 def l2_distance(a, b):
+    a = a.detach().numpy()
+    b = b.detach().numpy()
     diff = np.subtract(a, b)
-    dist = np.sum(np.square(diff))
+    dist = np.sum(np.square(diff), 1)
     print("dist: ", dist)
     return dist
 
@@ -128,10 +130,13 @@ def embedding(img, model):
 
 def load_database(path_to_folder):
     emb_names = os.listdir(path_to_folder)
+    print(emb_names)
     embs = []
     for emb_name in emb_names:
-        emb = np.load(os.path.join(path_to_folder, emb_name))
+        emb = np.load(os.path.join(path_to_folder, emb_name), allow_pickle=True)
         embs.append(emb)
+
+    print(np.array(embs)[0].shape)
 
     return embs, emb_names
 
@@ -142,25 +147,37 @@ def find_person(database, name_ids, unknows, face_unknows):
         unknow = unknow.unsqueeze(0)
         face = face_unknows[i]
         if face is not None and unknow is not None:
-            cv2.imwrite("/content/output/" + str(i) + ".jpg", face)
             print(str(i) + ".jpg")
             distancies = list()
+            ids = list()
             for idx in range(len(database)):
-                if database[idx] is None:
+                if database[idx].size == 1:
                     continue
-                person = database[idx][0].unsqueeze(0)
-                loss = torch.tensor([100])
-                # print("person shape: {}, unknow shape: {}".format(person.shape, unknow.shape))
-                if person is not None:
-                    loss = cosine_distance(unknow, person)
-                    # print(loss.shape)
-                    # print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
-                # print("loss: {}".format(loss))
-                distancies.append(np.absolute(np.min(loss)))
+                try:
+                    person = torch.from_numpy(database[idx][0].astype(np.float32)).unsqueeze(0)
+                    person = person.type(torch.float32)
+                    loss = torch.tensor([100])
+                    # print("person shape: {}, unknow shape: {}".format(person.shape, unknow.shape))
+                    if person is not None:
+                        loss = l2_distance(unknow, person)
+                        # print(loss.shape)
+                        # print("{}, {:>30}: {}".format(idx, name_ids[idx], loss))
+                    # print("loss: {}".format(loss))
+                    distancies.append(np.absolute(np.min(loss)))
+                    ids.append(name_ids[idx])
+                except Exception as ex:
+                    print(ex)
             distancies = np.array(distancies)
             argmin = np.argmin(distancies)
             min = np.min(distancies)
-            print("min: {}, argmin: {}, name: {}".format(min, argmin, name_ids[argmin]))
+            print("min: {}, argmin: {}, name: {}".format(min, argmin, ids[argmin]))
+            folder = ids[argmin].split("_")[0]
+            img_name = ids[argmin].split(".")[0]
+            img_pred = cv2.imread(os.path.join("/content/Data_Id/", folder, img_name + ".jpg"))
+            img_pred = cv2.hconcat([img_pred, face])
+            img_pred = cv2.putText(img_pred, img_name, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, fontScale=1,
+                                   color=(0, 255, 0))
+            cv2.imwrite("/content/output/" + str(i) + ".jpg", img_pred)
 
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/3DDFA_V2/demo_webcam_smooth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Face-Transformer/embedding_all_data_ids.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/embedding_all_data_ids.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Face-Transformer/test_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Face-Transformer/test_image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insightface" beforeDir="false" afterPath="$PROJECT_DIR$/insightface" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/insightface/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/insightface/.gitmodules" beforeDir="false" />
