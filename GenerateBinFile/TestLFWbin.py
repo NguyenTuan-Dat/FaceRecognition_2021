@@ -6,15 +6,6 @@ import numpy as np
 import torch
 
 
-def get_val_pair(path, name):
-    ver_path = os.path.join(path, name + ".bin")
-    print(ver_path)
-    assert os.path.exists(ver_path)
-    data_set, issame = load_bin(ver_path)
-    print('ver', name)
-    return data_set, issame
-
-
 def load_bin(path, image_size=[112, 112]):
     bins, issame_list = pickle.load(open(path, 'rb'), encoding='bytes')
     data_list = []
@@ -45,5 +36,14 @@ def load_bin(path, image_size=[112, 112]):
     return data_list, issame_list
 
 
-data = get_val_pair("/Users/ntdat/Tài liệu/Nghiên cứu nhận dạng khuôn mặt/Code/GenerateBinFile", "data")
+def get_val_pair(path, name):
+    ver_path = os.path.join(path, name + ".bin")
+    print(ver_path)
+    assert os.path.exists(ver_path)
+    data_set, issame = load_bin(ver_path)
+    print('ver', name)
+    return data_set, issame
+
+
+data = get_val_pair("/Users/ntdat/Tài liệu/Nghiên cứu nhận dạng khuôn mặt/Dự án công ty/Data", "lfw")
 print(len(data[1]))

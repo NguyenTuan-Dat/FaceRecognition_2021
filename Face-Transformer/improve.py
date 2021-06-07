@@ -39,6 +39,8 @@ def need_save(acc, highest_acc):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='for face verification')
+    parser.add_argument('--pretrained-model',
+                        default="/content/Backbone_VITs_Epoch_2_Batch_12000_Time_2021-03-17-04-05_checkpoint.pth")
     parser.add_argument("-w", "--workers_id", help="gpu ids or cpu", default='cpu', type=str)
     parser.add_argument("-e", "--epochs", help="training epochs", default=125, type=int)
     parser.add_argument("-b", "--batch_size", help="batch_size", default=256, type=int)
@@ -168,6 +170,8 @@ if __name__ == '__main__':
             emb_dropout=0.1
         )}
     BACKBONE = BACKBONE_DICT[BACKBONE_NAME]
+    BACKBONE.load_state_dict(torch.load(args.pretrained_model))
+
     print("=" * 60)
     print(BACKBONE)
     print("{} Backbone Generated".format(BACKBONE_NAME))

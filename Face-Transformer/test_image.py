@@ -17,7 +17,7 @@ from facenet_pytorch import MTCNN
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
-mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
+haar_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 def cosine_distance(a, b):
@@ -97,9 +97,11 @@ def embedding(img, model):
     img_cropped_faces = None
     with torch.no_grad():
         try:
-            cropped_faces = mtcnn(img)
+            cropped_faces = haar_cascade.detectMultiScale(img, 1.3, 5)
             if cropped_faces is not None:
-                img_cropped_faces = cropped_faces.detach().numpy()
+                img_cropped_faces = []
+                for (x, y, w, h) in cropped_faces:
+                    cropped_face = img[x: x + w, y: y + h]
                 img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 print(embed.shape)
