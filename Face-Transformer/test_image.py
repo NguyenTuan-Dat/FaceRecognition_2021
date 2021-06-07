@@ -13,6 +13,7 @@ import torch.utils.data as data
 import argparse
 import os
 from facenet_pytorch import MTCNN
+from IPython.display import display
 
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
@@ -102,6 +103,8 @@ def embedding(img, model):
                 img_cropped_faces = []
                 for (x, y, w, h) in cropped_faces:
                     cropped_face = img[x: x + w, y: y + h]
+                    img_cropped_faces.append(cropped_face)
+                    display(cropped_face)
                 img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
                 embed = model(cropped_faces.to(DEVICE)).cpu()
                 print(embed.shape)
