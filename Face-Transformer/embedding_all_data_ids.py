@@ -51,6 +51,7 @@ def parse_arguments(argv):
 
 
 def main(args):
+    global SAVE_FOLDER
     SAVE_FOLDER = args.save_folder
 
     if args.network == 'VIT':
@@ -138,7 +139,8 @@ def embedding_database(path_to_dirs, model):
         for img_name in img_names:
             img = cv2.imread(path_to_dir + img_name)
             embed, _ = embedding(img, model)
-            np.save(os.path.join(SAVE_FOLDER, img_name), embed)
+            np.save(os.path.join(SAVE_FOLDER, img_name.split(".")[0] + ".npy"), embed)
+            print("saved embedding: ", img_name)
             embeds.append(embed)
             name_ids.append(dir + "/" + img_name)
 
