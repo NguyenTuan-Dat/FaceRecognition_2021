@@ -12,12 +12,11 @@ from image_iter import FaceDataset
 import torch.utils.data as data
 import argparse
 import os
-from facenet_pytorch import MTCNN
 
 MULTI_GPU = False
 DEVICE = torch.device("cuda:0")
 
-mtcnn = MTCNN(image_size=112, margin=0, keep_all=True, post_process=False, device='cuda:0')
+haar_cascade = cv2.CascadeClassifier('/content/haarcascade_frontalface_default.xml')
 
 
 def cosine_distance(a, b):
@@ -27,7 +26,14 @@ def cosine_distance(a, b):
     b_norm = np.linalg.norm(b)
     similarity = np.dot(a, b.T) / (a_norm * b_norm)
 
-    return 1 - similarity
+    return similarity
+
+
+def l2_distance(a, b):
+    diff = np.subtract(a, b)
+    dist = np.sum(np.square(diff))
+    print("dist: ", dist)
+    return dist
 
 
 def parse_arguments(argv):
@@ -39,6 +45,7 @@ def parse_arguments(argv):
     parser.add_argument('--target', default='lfw,talfw,sllfw,calfw,cplfw,cfp_fp,agedb_30',
                         help='')
     parser.add_argument('--batch_size', type=int, help='', default=20)
+    parser.add_argument('--database_dir', type=str, default="/content/embeddings/")
     return parser.parse_args(argv)
 
 
@@ -80,7 +87,7 @@ def main(args):
     model.to(DEVICE)
     model.eval()
 
-    database, name_ids = embedding_database(args.test_dir, model)
+    database, name_ids = load_database(args.database_dir)
 
     print("len database: {}, len name_ids: {}".format(len(database), len(name_ids)))
 
@@ -97,11 +104,21 @@ def embedding(img, model):
     img_cropped_faces = None
     with torch.no_grad():
         try:
-            cropped_faces = mtcnn(img)
+            cropped_faces = haar_cascade.detectMultiScale(img, 1.3, 5)
             if cropped_faces is not None:
-                img_cropped_faces = cropped_faces.detach().numpy()
-                img_cropped_faces = np.transpose(img_cropped_faces, (0, 2, 3, 1))
-                embed = model(cropped_faces.to(DEVICE)).cpu()
+                img_cropped_faces = []
+                for (x, y, w, h) in cropped_faces:
+                    if w > h:
+                        h = w
+                    else:
+                        w = h
+                    cropped_face = img[y: y + h, x: x + w]
+                    cropped_face = cv2.resize(cropped_face, (112, 112))
+                    img_cropped_faces.append(cropped_face)
+                img_cropped_faces = np.array(img_cropped_faces)
+                tensor_cropped_faces = torch.from_numpy(np.transpose(img_cropped_faces, (0, 3, 1, 2)))
+                tensor_cropped_faces = tensor_cropped_faces.type(torch.float32)
+                embed = model(tensor_cropped_faces.to(DEVICE)).cpu()
                 print(embed.shape)
                 return embed, img_cropped_faces
         except Exception as ex:
@@ -109,26 +126,14 @@ def embedding(img, model):
     return embed, img_cropped_faces
 
 
-def embedding_database(path_to_dirs, model):
-    list_dir = os.listdir(path_to_dirs)
+def load_database(path_to_folder):
+    emb_names = os.listdir(path_to_folder)
+    embs = []
+    for emb_name in emb_names:
+        emb = np.load(os.path.join(path_to_folder, emb_name))
+        embs.append(emb)
 
-    embeds = list()
-    name_ids = list()
-
-    for dir in list_dir:
-        if dir == ".DS_Store":
-            continue
-        path_to_dir = path_to_dirs + dir + "/"
-        img_names = os.listdir(path_to_dir)
-        for img_name in img_names:
-            img = cv2.imread(path_to_dir + img_name)
-            embed, _ = embedding(img, model)
-            embeds.append(embed)
-            name_ids.append(dir + "/" + img_name)
-
-            # print("{}: {}".format(dir + "/" + img_name, embed))
-
-    return embeds, name_ids
+    return embs, emb_names
 
 
 def find_person(database, name_ids, unknows, face_unknows):
